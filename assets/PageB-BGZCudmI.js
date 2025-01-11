@@ -1,0 +1,1 @@
+import{e as s,_ as o,c as t,a,o as n}from"./index-D3I3RIKD.js";const c=s({name:"PageB"}),p={class:"page-b"};function r(u,e,d,_,i,l){return n(),t("div",p,e[0]||(e[0]=[a("h1",null,"頁面 B | Page B",-1),a("p",null,"這是頁面 B | This is page B",-1)]))}const f=o(c,[["render",r],["__scopeId","data-v-2797d1a3"]]);export{f as default};

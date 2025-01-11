@@ -1,1 +1,0 @@
-import{d as t,_ as s,c as a,a as o,o as u}from"./index-zN5hx9Ab.js";const n=t({name:"AboutPage"}),c={class:"about"};function r(p,e,d,_,i,l){return u(),a("div",c,e[0]||(e[0]=[o("h1",null,"關於我們 | About Us",-1),o("p",null,"這是關於頁面 | This is the about page",-1)]))}const b=s(n,[["render",r],["__scopeId","data-v-eb1c0c04"]]);export{b as default};
