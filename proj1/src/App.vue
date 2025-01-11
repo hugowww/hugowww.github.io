@@ -13,6 +13,10 @@
         height: 50px;
       "
       class="d-flex flex-column">
+      <div class="btn btn-sm btn-primary" @click="EnterMode">draw</div>
+      <div class="btn btn-sm btn-primary" @click="Clear">clear</div>
+      <div class="btn btn-sm btn-primary" @click="To('home100')">home 100m</div>
+      <div class="btn btn-sm btn-primary" @click="To('home200')">home 200m</div>
       <div class="btn btn-sm btn-primary" @click="To('home300')">home 300m</div>
       <div class="btn btn-sm btn-primary" @click="To('home1000')">
         home 1000m
@@ -26,9 +30,13 @@
 <script setup>
 import { geo } from "./mGeo";
 import { ref, onMounted } from "vue";
-import { displayCenter, data, distanceCircles } from "./data";
+import { displayCenter, data, distanceCircles } from "./data/data";
+import { waitList } from "./data/waitList";
+import { regionData } from "./data/regionData";
 
-function plotLocations(map, data) {
+let map;
+let annotLayer;
+function plotLocations(data) {
   var pointLayer = map.createLayer("feature", { features: ["point"] });
   var pointFeature = pointLayer
     .createFeature("point")
@@ -70,7 +78,50 @@ function plotLocations(map, data) {
     .draw();
 }
 
-function plotDistanceCircle(map, data) {
+function plotWaitLocations(data) {
+  var pointLayer = map.createLayer("feature", { features: ["point"] });
+  var pointFeature = pointLayer
+    .createFeature("point")
+    .data(data)
+    .position(function (dt) {
+      return {
+        x: dt.x,
+        y: dt.y,
+      };
+    })
+    .style({
+      fillColor: { r: 1, g: 0, b: 0 },
+      radius: 3,
+    })
+    .draw();
+
+  var textLayer = map.createLayer("feature", { features: ["text"] });
+  var textFeature = textLayer
+    .createFeature("text")
+    .data(data)
+    .position(function (dt) {
+      return {
+        x: dt.x,
+        y: dt.y,
+      };
+    })
+    .text(function (dt) {
+      return dt.name;
+    })
+    .draw();
+  textFeature
+    .style({
+      fontSize: "12px",
+      fontFamily: "serif",
+      textAlign: "left",
+      textBaseline: "middle",
+      color: "white",
+      offset: { x: 6, y: 0 },
+    })
+    .draw();
+}
+
+function plotDistanceCircle(data) {
   var layer = map.createLayer("feature", { features: ["polygon"] });
 
   for (let dt of data) {
@@ -84,7 +135,44 @@ function plotDistanceCircle(map, data) {
       .draw();
   }
 }
-let map;
+
+function plotRegion(data) {
+  var layer = map.createLayer("feature");
+
+  for (let dt of data) {
+    var feature = layer
+      .createFeature("polygon")
+      .data([dt.coord])
+      .position(function (d) {
+        return { x: d[0], y: d[1] };
+      })
+      .style(dt.style)
+      .draw();
+  }
+
+  var textLayer = map.createLayer("feature", { features: ["text"] });
+  var textFeature = textLayer
+    .createFeature("text")
+    .data(data)
+    .position(function (dt) {
+      return {
+        x: dt.mx,
+        y: dt.my,
+      };
+    })
+    .text(function (dt) {
+      return dt.name;
+    })
+    .draw();
+  textFeature
+    .style({
+      fontSize: "42px",
+      fontFamily: "serif",
+      color: "white",
+    })
+    .draw();
+}
+
 function To(key) {
   let dt = displayCenter[key];
   // map.center(c).zoom(c.zoom);
@@ -110,20 +198,45 @@ onMounted(() => {
     $("#info2").text("z: " + evt.zoomLevel.toFixed(6));
   });
   map.geoOn(geo.event.mouseclick, function (evt) {
-    console.log([evt.geo.x.toFixed(6), evt.geo.y.toFixed(6)]);
+    console.log({
+      x: Number(evt.geo.x.toFixed(6)),
+      y: Number(evt.geo.y.toFixed(6)),
+      name: "",
+    });
   });
-  let osmLayer = map.createLayer("osm");
+  let osmLayer = map.createLayer("osm", {keepLower: false, animationDuration: 10000});
   osmLayer.opacity(0.3);
+  console.log('osmLayer', osmLayer)
 
   // to home
-  To("home300");
+  To("home200");
 
   // plot location
-  plotLocations(map, data);
+  plotLocations(data);
 
   // plot concentric circles
-  plotDistanceCircle(map, distanceCircles);
+  plotDistanceCircle(distanceCircles);
+
+  // plot wait list
+  plotWaitLocations(waitList);
+
+  // plot region
+  plotRegion(regionData);
+
+  //
+  annotLayer = map.createLayer("annotation");
 });
+
+function EnterMode() {
+  annotLayer.mode("polygon");
+  annotLayer.geoOnce(geo.event.annotation.mode, () => {
+    let coord = annotLayer.geojson().features[0].geometry.coordinates[0];
+    console.log(coord);
+  });
+}
+function Clear() {
+  annotLayer.removeAllAnnotations();
+}
 </script>
 
 <style>
