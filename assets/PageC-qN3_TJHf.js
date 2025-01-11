@@ -1,0 +1,1 @@
+import{d as s,_ as o,c as t,a,o as n}from"./index-DkDgZH2Q.js";const c=s({name:"PageC"}),p={class:"page-c"};function r(u,e,d,_,f,i){return n(),t("div",p,e[0]||(e[0]=[a("h1",null,"頁面 C | Page C",-1),a("p",null,"這是頁面 C | This is page C",-1)]))}const C=o(c,[["render",r],["__scopeId","data-v-f6c519f0"]]);export{C as default};
