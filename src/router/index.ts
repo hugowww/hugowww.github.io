@@ -13,9 +13,9 @@ const routes = [
     component: () => import('../pages/About.vue'), // 懶加載 About 組件
   },
   {
-    path: '/page-a',
-    name: 'PageA',
-    component: () => import('../pages/PageA.vue'),
+    path: '/minesweeper',
+    name: 'Minesweeper',
+    component: () => import('../pages/Minesweeper.vue'),
   },
   {
     path: '/page-b',

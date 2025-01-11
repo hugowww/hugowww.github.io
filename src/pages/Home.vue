@@ -8,7 +8,7 @@
     
     <!-- Bootstrap 按鈕 -->
     <div class="nav-buttons">
-      <router-link to="/page-a" class="btn btn-primary me-2">Page A</router-link>
+      <router-link to="/minesweeper" class="btn btn-primary me-2">踩地雷</router-link>
       <router-link to="/page-b" class="btn btn-success me-2">Page B</router-link>
       <router-link to="/page-c" class="btn btn-info">Page C</router-link>
     </div>
