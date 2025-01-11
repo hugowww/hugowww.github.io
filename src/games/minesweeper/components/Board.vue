@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { AddLog } from "../decorators/AddLog";
 import { MinesweeperEngine } from "../core/Engine";
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 
 const engine = new AddLog(new MinesweeperEngine("MEDIUM"));
 const board = ref(engine.board);
