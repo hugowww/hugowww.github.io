@@ -1,10 +1,7 @@
 <template>
   <div class="home">
     <h1>首頁 | Home</h1>
-    <p>歡迎來到我們的網站 | Welcome to our website</p>
-    <div class="box">
-        stylus test
-    </div>
+    <p>歡迎來到我的網站 | Welcome to my website</p>
     
     <!-- Bootstrap 按鈕 -->
     <div class="nav-buttons">
