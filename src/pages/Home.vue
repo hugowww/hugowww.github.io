@@ -2,45 +2,26 @@
   <div class="home">
     <h1>首頁 | Home</h1>
     <p>歡迎來到我的網站 | Welcome to my website</p>
-    
-    <!-- Bootstrap 按鈕 -->
-    <div class="nav-buttons">
-      <router-link to="/minesweeper" class="btn btn-primary me-2">踩地雷</router-link>
-      <router-link to="/page-b" class="btn btn-success me-2">Page B</router-link>
-      <router-link to="/page-c" class="btn btn-info">Page C</router-link>
+
+    <div class="flex-row border p-2">
+      <router-link to="/minesweeper" class="btn btn-primary me-2"
+        >踩地雷</router-link
+      >
+    </div>
+
+    <div class="flex-row border p-2 mt-2">
+      <h2>Todo List</h2>
+      <router-link to="/page-b" class="btn btn-success me-2"
+        >貪食蛇</router-link
+      >
+      <router-link to="/page-c" class="btn btn-info me-2"
+        >js worker</router-link
+      >
+      <router-link to="/page-c" class="btn btn-info me-2">openGL</router-link>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'HomePage',
-  // 組件邏輯可以在這裡添加 | Component logic can be added here
-})
-</script>
-
 <style scoped>
-@import '../assets/styles/home.styl';
-
-.nav-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.nav-btn {
-  padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.nav-btn:hover {
-  background-color: #45a049;
-}
-</style> 
+@import "../assets/styles/home.styl";
+</style>
