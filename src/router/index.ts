@@ -18,9 +18,9 @@ const routes = [
     component: () => import('../pages/Minesweeper.vue'),
   },
   {
-    path: '/page-b',
-    name: 'PageB',
-    component: () => import('../pages/PageB.vue'),
+    path: '/snake',
+    name: 'Snake',
+    component: () => import('../pages/Snake.vue'),
   },
   {
     path: '/page-c',
