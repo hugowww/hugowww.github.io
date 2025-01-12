@@ -15,12 +15,17 @@ const routes = [
   {
     path: '/minesweeper',
     name: 'Minesweeper',
-    component: () => import('../pages/Minesweeper.vue'),
+    component: () => import('../pages/PageMinesweeper.vue'),
   },
   {
     path: '/snake',
     name: 'Snake',
-    component: () => import('../pages/Snake.vue'),
+    component: () => import('../pages/PageSnake.vue'),
+  },
+  {
+    path: '/find-prime',
+    name: 'FindPrime',
+    component: () => import('../pages/PageFindPrime.vue'),
   },
   {
     path: '/page-c',

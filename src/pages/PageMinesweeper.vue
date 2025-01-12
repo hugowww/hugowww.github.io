@@ -6,5 +6,5 @@
 </template>
 
 <script setup lang="ts">
-import MinesweeperBoard from "../games/minesweeper/components/Board.vue";
+import MinesweeperBoard from "../projects/minesweeper/components/Board.vue";
 </script>
