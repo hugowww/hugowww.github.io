@@ -10,50 +10,47 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue'
-import { GameEngine } from '../core/GameEngine'
-import { Renderer } from '../core/Renderer'
-import { InputHandler } from '../core/InputHandler'
+import { ref, onUnmounted } from "vue";
+import { GameEngine } from "../core/GameEngine";
+import { Renderer } from "../core/Renderer";
+import { InputHandler } from "../core/InputHandler";
 
-const gameCanvas = ref<HTMLCanvasElement | null>(null)
-const score = ref(0)
-let gameEngine: GameEngine | null = null
-let renderer: Renderer | null = null
-let inputHandler: InputHandler | null = null
-let gameLoop: number | null = null
+const gameCanvas = ref<HTMLCanvasElement | null>(null);
+const score = ref(0);
+let gameLoop: number | null = null;
 
 onUnmounted(() => {
   if (gameLoop) {
-    cancelAnimationFrame(gameLoop)
+    cancelAnimationFrame(gameLoop);
   }
-})
+});
 
 const startGame = () => {
   if (!gameCanvas.value) return;
-    
+
   // 初始化遊戲引擎、渲染器和輸入處理器
-  gameEngine = new GameEngine()
-  renderer = new Renderer(gameCanvas.value)
-  inputHandler = new InputHandler((direction) => {
-    gameEngine?.moveSnake(direction)
-  })
+  var gameEngine = new GameEngine();
+  var renderer = new Renderer(gameCanvas.value);
+  new InputHandler((direction) => {
+    gameEngine?.moveSnake(direction);
+  });
 
   // 開始遊戲
   gameEngine.start();
-  score.value = 0
-  
+  score.value = 0;
+
   // 更新遊戲狀態和渲染
   const update = () => {
-    const state = gameEngine!.getState()
-    renderer!.render(state)
-    score.value = state.score
-    
+    const state = gameEngine!.getState();
+    renderer!.render(state);
+    score.value = state.score;
+
     if (!state.isGameOver) {
-      gameLoop = requestAnimationFrame(update)
+      gameLoop = requestAnimationFrame(update);
     }
-  }
-  update()
-}
+  };
+  update();
+};
 </script>
 
 <style scoped>
@@ -79,4 +76,3 @@ button {
   font-size: 20px;
 }
 </style>
-
